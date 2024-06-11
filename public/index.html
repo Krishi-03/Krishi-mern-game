@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .login-container {
+        max-width: 400px;
+        margin: 100px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .login-container h2 {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        font-weight: bold;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+      }
+      .btn-login {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+      .btn-login:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <script src="login.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-container">
+        <h2>User Login</h2>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="username">Enter Username</label>
+            <input
+              type="text"
+              id="fusername"
+              class="form-control"
+              placeholder="Enter username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Enter EmailID</label>
+            <input
+              type="email"
+              id="femail"
+              class="form-control"
+              placeholder="Enter Email ID"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Enter Password</label>
+            <input
+              type="password"
+              id="fpassword"
+              class="form-control"
+              placeholder="Enter password"
+              required
+            />
+          </div>
+
+          <input
+            type="submit"
+            id="sub_id"
+            value="Sign In"
+            class="btn text-white btn-block btn-primary"
+          />
+          <span> Not Registered yet? </span> <a href="register.html"> Register here!</a><br>
+          <span> Admin Registration </span> <a href="adminregis.html">Register here!</a><br>
+          <span> Play as a guest: </span> <a href="scramble.html">Play here!</a>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

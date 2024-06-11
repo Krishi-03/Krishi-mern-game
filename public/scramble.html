@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Word Scramble Game </title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/word-list.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+        console.log(loggedInUser);
+        document.getElementById('user-info').innerHTML = `Hello ${loggedInUser}! Welcome to Apna Playground`;
+        finishBtn.addEventListener('click', function () {
+            const point = score; // Replace with the actual game score
+              fetch(`http://localhost:3000/updateUser`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: loggedInUser, score })
+              });
+              window.location.href = '/dashboard.html';
+        });
+      })
+    </script>
+  </head>
+  <body>
+    <div class="container">
+        <h2 style="text-align:center;">Word Scramble</h2>
+        <div class="content">
+        <div id='user-info'></div>
+            <p class="word"></p>
+            <div class="details">
+                <p class="hint">Hint: <span></span></p>
+                <p class="time">Time Left: <span><b>30</b>s</span></p>
+            </div>
+            <input type="text" spellcheck="false" placeholder="Enter a valid word">
+            <div class="buttons">
+                <button class="refresh-word">Refresh Word</button>
+                <button class="check-word">Check Word</button>
+                <button class="finish-game">Finish Game</button>
+            </div>
+            <div class="score-area"><span>Score: </span><span class="score">0</span></div>
+            <span>Max Score: <span id='max-score'></span></span>
+        </div>
+    </div>
+  </body>
+</html>
