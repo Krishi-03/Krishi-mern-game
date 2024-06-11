@@ -11,7 +11,7 @@ const p_pass=document.getElementById('fpassword').value;
 const p_email=document.getElementById('femail').value;
 
 console.log(p_name+ p_pass+p_email);
-
+console.log("admin wala?");
 
 
   // Basic form validation
@@ -22,7 +22,7 @@ console.log(p_name+ p_pass+p_email);
 
   try {
     // Perform AJAX request to the server register endpoint
-    const response = await fetch('/register', {
+    const response = await fetch('/adminregister', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,16 +31,16 @@ console.log(p_name+ p_pass+p_email);
     });
     console.log(response.ok);
     if (!response.ok) {
-      alert('Username already exists. Please choose a different one.');
+      alert('Check credentials.');
     }
     const result = await response.json();
     console.log("chala?")
 
     if (result.success) {
       console.log('Registration successful!');
+      console.log("Admin wala?");
       alert(result.message);
-      sessionStorage.setItem('loggedInUser', p_name)
-      window.location.href = "/index.html";
+      window.location.href = "/adminlogin.html";
     } 
     else {
       alert(result.message);
