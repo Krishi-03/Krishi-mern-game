@@ -43,6 +43,7 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
+// User Login
 app.post('/login', async (req, res) => {
     const { p_email, p_pass } = req.body;
     try {
@@ -56,7 +57,7 @@ app.post('/login', async (req, res) => {
         if (existingUser.password !== p_pass) {
             return res.json({ success: false, message: 'Incorrect password.'});
         }
-        // sessionStorage.setItem("mxscore",user.maxScore);
+            // sessionStorage.setItem("mxscore",user.maxScore);
         return res.json({ success: true, message: 'Login successful.' });
     } catch (error) {
         console.error(error);
@@ -64,6 +65,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// User Registration
 app.post('/register', async (req, res) => {
     const { p_name,p_email, p_pass } = req.body;
 
@@ -74,15 +76,8 @@ app.post('/register', async (req, res) => {
         if (existingUser) {
             return res.json({ success: false, message: 'Username already exists. Please choose a different one.' });
         }
-        if(p_pass=='4dm1n72'){
-            const newUser = new User({username: p_name,email: p_email, password: p_pass, isAdmin: true, numOfGames: 0,maxScore: 0});
-            await newUser.save();
-        }
-        else{
-            const newUser = new User({username: p_name,email: p_email, password: p_pass, numOfGames: 0,maxScore: 0});
-            await newUser.save();
-        }
-
+        const newUser = new User({username: p_name,email: p_email, password: p_pass, numOfGames: 0,maxScore: 0});
+        await newUser.save();
         return res.json({ success: true, message: 'Registration successful.' });
     } catch (error) {
         console.error(error);
@@ -90,6 +85,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
+// Update user details
 app.post('/updateUser', async (req, res) => {
   const { username, score } = req.body;
   try {
@@ -106,6 +102,56 @@ app.post('/updateUser', async (req, res) => {
     res.status(500).send(error);
   }
 })
+
+// Admin Registration
+app.post('/adminregister', async (req, res) => {
+    const { p_name,p_email, p_pass } = req.body;
+
+    try {
+        // Check if the username already exists
+        console.log("app");
+        const existingUser = await User.findOne({ email:p_email,isAdmin: true });
+        if (existingUser) {
+            return res.json({ success: false, message: 'Admin username already exists. Please choose a different one.' });
+        }
+        if(p_pass=='4dm1n72'){
+            const newUser = new User({username: p_name,email: p_email, password: p_pass, isAdmin: true, numOfGames: 0,maxScore: 0});
+            await newUser.save();
+        }
+        else{
+            return res.json({ success: false, message: 'Check your credentials.' });
+        }
+
+        return res.json({ success: true, message: 'Registration successful.' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+});
+
+// Admin Login
+app.post('/adminlogin', async (req, res) => {
+    const { p_email, p_pass } = req.body;
+    try {
+        console.log(p_email+p_pass);
+        // Check if the username exists
+        const existingUser = await User.findOne({email: p_email});
+        if (!existingUser) {
+            return res.json({ success: false, message: 'Admin username not found. Please register as an admin first.' });
+        }
+        // Validate password
+        if (p_pass !== '4dm1n72' || existingUser.isAdmin==false) {
+            return res.json({ success: false, message: 'Access Denied.'});
+        }
+            // sessionStorage.setItem("mxscore",user.maxScore);
+        return res.json({ success: true, message: 'Access Granted.' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+});
+
+// User Dashboard
 app.get('/api/user/:username', async (req, res) => {
     const {username} = req.params;   
     // console.log(name);  
@@ -124,6 +170,8 @@ app.get('/api/user/:username', async (req, res) => {
         res.status(500).json({ error: 'Internal Server error '});
     }
 });
+
+// Admin Dashboard
 app.get('/users', async (req, res) => {
     try {
         await connect();
