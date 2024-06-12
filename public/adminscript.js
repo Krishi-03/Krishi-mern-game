@@ -17,7 +17,6 @@ async function fetchUserData() {
         const tableBody = document.querySelector('#userTable tbody');
 
         users.forEach(user => {
-            if (user.isAdmin == false) {
                 const row = document.createElement('tr');
 
                 const usernameCell = document.createElement('td');
@@ -58,7 +57,6 @@ async function fetchUserData() {
                 row.appendChild(actionsCell);
 
                 tableBody.appendChild(row);
-            }
         });
     }
     else{ // console.log("user"+username);
@@ -75,7 +73,7 @@ async function updateUser(user) {
     const password = prompt('Enter new password:', user.password);
     if (username && email && password && !user.isAdmin) {
         try {
-            const response = await fetch(`http://localhost:3000/updateuser/${username}`, {
+            const response = await fetch(`http://localhost:3000/admin/updateuser/${username}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

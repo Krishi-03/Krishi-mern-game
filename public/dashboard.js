@@ -37,44 +37,66 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     }
 
-    updateBtn.addEventListener('click', function () {
-        async function updateUserData(username) {
-    try {
-        // username=JSON.stringify(username);
-        const response = await fetch(`api/user/${username}`);
-        console.log(response);
-        if (response.ok) {
-            const data = await response.json();
-            displayUserData(data);
-        } else {
-            // console.log("user"+username);
-            console.error('Error fetching user data:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
-    }
+    // Update button 
+    updateBtn.addEventListener('click', () => {
+            updateUser(loggedInUser);
     });
+    async function updateUser(username) {
+        const email = prompt('Enter new email:');
+        const password = prompt('Enter new password:');
+        if (username && email && password) {
+            try {
+                const response = await fetch(`http://localhost:3000/user/updateuser/${username}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    })
+                });
+                if (response.ok) {
+                    alert('User updated successfully');
+                    location.reload();
+                } else {
+                    console.error('Error updating user:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error updating user:', error);
+            }
+        }
+    }   
 
-    deleteBtn.addEventListener('click', function () {
-        window.location.href = '/scramble.html';
-    async function fetchUserData(username) {
-    try {
-        // username=JSON.stringify(username);
-        const response = await fetch(`api/user/${username}`);
-        console.log(response);
-        if (response.ok) {
-            const data = await response.json();
-            displayUserData(data);
-        } else {
-            // console.log("user"+username);
-            console.error('Error fetching user data:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
-    }
+    deleteBtn.addEventListener('click', () => {
+            deleteUser(loggedInUser);
     });
+    async function deleteUser(username) {
+        const confirmation = confirm('Are you sure you want to delete this user?');
+        if (confirmation) {
+            try {
+                const response = await fetch(`http://localhost:3000/deleteuser`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                    })
+                });
+
+                if (response.ok) {
+                    alert('User deleted successfully');
+                    window.location.href = '/index.html';
+                } else {
+                    console.error('Error deleting user:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+            }
+        }
+    }   
+
 
 function displayUserData(data) {
     document.getElementById('max-score').textContent = data.maxScore;

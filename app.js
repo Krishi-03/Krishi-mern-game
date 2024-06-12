@@ -104,7 +104,7 @@ app.post('/updateUserscore', async (req, res) => {
 });
 
 // Update user details
-app.put('/updateuser/:username', async (req, res) => {
+app.put('/admin/updateuser/:username', async (req, res) => {
     const {username} = req.params;  
     const { email, password } = req.body;    
     // res.send(username+email+password);
@@ -190,6 +190,26 @@ app.post('/adminlogin', async (req, res) => {
     }
 });
 
+// Admin Dashboard
+app.get('/users', async (req, res) => {
+    try {
+        await connect();
+
+        // Access the database
+        const db = mongoose.connection;
+
+        // Fetch all users
+        const allUsers = await User.find().exec();
+
+        // Respond with the user details
+        res.json(allUsers);
+    } catch (error) {
+        // res.send("nhi aaya");
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // User Dashboard
 app.get('/api/user/:username', async (req, res) => {
     const {username} = req.params;   
@@ -210,22 +230,28 @@ app.get('/api/user/:username', async (req, res) => {
     }
 });
 
-// Admin Dashboard
-app.get('/users', async (req, res) => {
+app.put('/user/updateuser/:username', async (req, res) => {
+    const {username} = req.params;  
+    const { email, password } = req.body;    
+    // res.send(username+email+password);
+    // console.log(name);  
     try {
-        await connect();
-
-        // Access the database
-        const db = mongoose.connection;
-
-        // Fetch all users
-        const allUsers = await User.find().exec();
-
-        // Respond with the user details
-        res.json(allUsers);
-    } catch (error) {
-        // res.send("nhi aaya");
-        console.error('Error fetching users:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        const user = await User.findOne({ username});
+        if (user && !user.isAdmin){
+            user.email=email;
+            user.password=password;
+            await user.save();
+            res.status(200).json({ success: true, message: 'Updated user details successfully!' });
+        }
+        else{
+            console.log(username);
+            // res.json(name);
+            res.status(404).json({ error: 'User not found '});
+        }            
+    }
+    catch (error){
+        res.status(500).json({ error: 'Internal Server error '});
     }
 });
+
+
