@@ -18,7 +18,7 @@ if (!p_email || !p_pass) {
 
     try {
       // Perform AJAX request to the server login endpoint
-      const response = await fetch('/login', {
+      const response = await fetch('/adminlogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,15 +33,11 @@ if (!p_email || !p_pass) {
       }
 
 
-      console.log('Response from server:', result);
+      console.log('Response from server:', response);
 
       if (result.success) {
-        console.log('Login successful!');
-        const loggedInUser = document.getElementById('femail').value;
-        const usr=document.getElementById('fusername').value;
-        sessionStorage.setItem("loggedInUser", usr);
-        console.log("dashy"+usr+loggedInUser);
-        window.location.href = "/dashboard.html";
+        console.log('Access Granted!');
+        window.location.href = "/admindashboard.html";
       }
       else{
         alert(result.message);

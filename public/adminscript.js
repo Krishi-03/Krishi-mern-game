@@ -40,16 +40,86 @@ async function fetchUserData() {
                 gamesPlayedCell.textContent = user.numOfGames;
                 row.appendChild(gamesPlayedCell);
 
+                const actionsCell = document.createElement('td');
+                const updateButton = document.createElement('button');
+                updateButton.textContent = 'Update';
+                updateButton.className = 'update-button';
+                updateButton.addEventListener('click', () => {
+                    updateUser(user);
+                });
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-button';
+                deleteButton.addEventListener('click', () => {
+                    deleteUser(user.username);
+                });
+                actionsCell.appendChild(updateButton);
+                actionsCell.appendChild(deleteButton);
+                row.appendChild(actionsCell);
+
                 tableBody.appendChild(row);
             }
         });
     }
-    else 
-    {
-        // console.log("user"+username);
+    else{ // console.log("user"+username);
         console.error('Error fetching user data:', response.statusText);
     }
     } catch (error) {
         console.error('Error fetching user data:', error);
+    }
+}
+
+async function updateUser(user) {
+    const username = user.username;
+    const email = prompt('Enter new email:', user.email);
+    const password = prompt('Enter new password:', user.password);
+    if (username && email && password && !user.isAdmin) {
+        try {
+            const response = await fetch(`http://localhost:3000/updateuser/${username}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                })
+            });
+
+            if (response.ok) {
+                alert('User updated successfully');
+                location.reload();
+            } else {
+                console.error('Error updating user:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating user:', error);
+        }
+    }
+}
+
+async function deleteUser(username) {
+    const confirmation = confirm('Are you sure you want to delete this user?');
+    if (confirmation) {
+        try {
+            const response = await fetch(`http://localhost:3000/deleteuser`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                })
+            });
+
+            if (response.ok) {
+                alert('User deleted successfully');
+                location.reload();
+            } else {
+                console.error('Error deleting user:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
     }
 }

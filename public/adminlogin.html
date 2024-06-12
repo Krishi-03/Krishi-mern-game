@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground</title>
+    <title>Admin Login</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
@@ -56,12 +56,12 @@
         background-color: #0056b3;
       }
     </style>
-    <script src="login.js"></script>
+    <script src="adminlogin.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="login-container">
-        <h2>User Login</h2>
+        <h2>Admin Login</h2>
         <form action="#" method="post">
           <div class="form-group">
             <label for="username">Enter Username</label>
@@ -84,12 +84,12 @@
             />
           </div>
           <div class="form-group">
-            <label for="password">Enter Password</label>
+            <label for="password">Enter Secret Key</label>
             <input
               type="password"
               id="fpassword"
               class="form-control"
-              placeholder="Enter password"
+              placeholder="Enter Secret Key"
               required
             />
           </div>
@@ -100,10 +100,6 @@
             value="Sign In"
             class="btn text-white btn-block btn-primary"
           />
-          <span> Not Registered yet? </span> <a href="register.html"> Register here!</a><br>
-          <span> Admin Registration </span> <a href="adminregis.html">Register here!</a><br>
-          <span> Admin Login </span> <a href="adminlogin.html">Login Here!</a><br>
-          <span> Play as a guest: </span> <a href="scramble.html">Play here!</a>
         </form>
       </div>
     </div>

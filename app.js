@@ -85,8 +85,8 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Update user details
-app.post('/updateUser', async (req, res) => {
+// Update user score
+app.post('/updateUserscore', async (req, res) => {
   const { username, score } = req.body;
   try {
     let user = await User.findOne({ username });
@@ -101,7 +101,46 @@ app.post('/updateUser', async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-})
+});
+
+// Update user details
+app.put('/updateuser/:username', async (req, res) => {
+    const {username} = req.params;  
+    const { email, password } = req.body;    
+    // res.send(username+email+password);
+    // console.log(name);  
+    try {
+        const user = await User.findOne({ username});
+        if (user && !user.isAdmin){
+            user.email=email;
+            user.password=password;
+            await user.save();
+            res.status(200).json({ success: true, message: 'Updated user details successfully!' });
+        }
+        else{
+            console.log(username);
+            // res.json(name);
+            res.status(404).json({ error: 'User not found '});
+        }            
+    }
+    catch (error){
+        res.status(500).json({ error: 'Internal Server error '});
+    }
+});
+
+// Delete a user
+app.delete('/deleteuser', async (req, res) => {
+    const {username} = req.body;
+    try {
+        const deleteduser = await User.deleteOne({ username });
+        // Respond with the user details
+        res.status(200).json({ success: true, message: 'Deleted user successfully!' });
+    } catch (error) {
+        // res.send("nhi aaya");
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // Admin Registration
 app.post('/adminregister', async (req, res) => {
