@@ -21,20 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/scramble.html';
     });
     async function fetchUserData(username) {
-    try {
-        // username=JSON.stringify(username);
-        const response = await fetch(`api/user/${username}`);
-        console.log(response);
-        if (response.ok) {
-            const data = await response.json();
-            displayUserData(data);
-        } else {
-            // console.log("user"+username);
-            console.error('Error fetching user data:', response.statusText);
+    const urlParams = new URLSearchParams(window.location.search);
+        const isScript1  = urlParams.get("script1") === "true";
+        if (isScript1) {
+            const score = urlParams.get("max_score");
+            console.log("dashy"+score);
         }
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
     }
 
     // Update button 

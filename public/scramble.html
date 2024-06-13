@@ -7,22 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/word-list.js" defer></script>
     <script src="js/script.js" defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const loggedInUser = sessionStorage.getItem("loggedInUser");
-        console.log(loggedInUser);
-        document.getElementById('user-info').innerHTML = `Hello ${loggedInUser}! Welcome to Apna Playground`;
-        finishBtn.addEventListener('click', function () {
-            const point = score; // Replace with the actual game score
-              fetch(`http://localhost:3000/updateUserscore`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: loggedInUser, score })
-              });
-              window.location.href = '/dashboard.html';
-        });
-      })
-    </script>
+    
   </head>
   <body>
     <div class="container">

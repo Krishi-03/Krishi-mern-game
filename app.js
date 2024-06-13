@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 
 const path = require('path');
+const { message } = require('statuses');
 
 app.use(bodyParser.json({ limit: '100mb' }));
 const port = 3000;
@@ -56,6 +57,9 @@ app.post('/login', async (req, res) => {
         // Validate password
         if (existingUser.password !== p_pass) {
             return res.json({ success: false, message: 'Incorrect password.'});
+        }
+        if(existingUser.isAdmin){
+            return res.json({ success: false, message: 'Admin Login not allowed.'})
         }
             // sessionStorage.setItem("mxscore",user.maxScore);
         return res.json({ success: true, message: 'Login successful.' });

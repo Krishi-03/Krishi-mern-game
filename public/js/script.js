@@ -79,15 +79,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('max-score').innerHTML=`${(maxscore)}`;
     } else {
         userInfo.innerHTML = 'Register here to save your score';
+        document.getElementById('finish-game').addEventListener('click', () => {
+        window.location.href = '/index.html';
+        });
     }
     document.getElementById('finish-game').addEventListener('click', () => {
         //   const score = 50; // Replace with the actual game score
+        console.log("chala?");
           fetch(`http://localhost:3000/updateUserscore`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: loggedInUser, maxscore })
+            body: JSON.stringify({ loggedInUser, maxscore })
           });
-          window.location.href = '/dashboard.html';
+          
+          window.location.href = `/dashboard.html?script1=true&max_score=${maxscore}`;
         });
         
 });
