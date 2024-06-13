@@ -39,6 +39,14 @@ async function fetchUserData() {
                 gamesPlayedCell.textContent = user.numOfGames;
                 row.appendChild(gamesPlayedCell);
 
+                const usertype = document.createElement('td');
+                usertype.textContent = user.isAdmin;
+                if(user.isAdmin)
+                    usertype.textContent = 'Admin';
+                else
+                    usertype.textContent = 'User';
+                row.appendChild(usertype);
+
                 const actionsCell = document.createElement('td');
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';

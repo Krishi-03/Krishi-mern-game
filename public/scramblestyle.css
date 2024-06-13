@@ -88,7 +88,27 @@ body{
 .buttons button:active{
   transform: scale(0.97);
 }
-
+.buttons .refresh-word{
+  margin-right: 10px;
+  background: #2268a5;
+}
+.buttons .refresh-word:hover{
+  background: #167de4;
+}
+.buttons .check-word{
+  margin-right: 10px;
+  background: #5372F0;
+}
+.buttons .check-word:hover{
+  background: #2c52ed;
+}
+.buttons .finish-game{
+  margin-right: 10px;
+  background: #d12608;
+}
+.buttons .finish-game:hover{
+  background: #e1130f;
+}
 
 @media screen and (max-width: 470px) {
   .container h2{
@@ -121,67 +141,5 @@ body{
             text-align:center;
             font-size: 20px;
             margin-bottom: 20px;
-}
-#play_scramble {
-    padding: 10px 20px;
-    font-size: 14px;
-    color: white;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 10px;
-    cursor:pointer;
-}
-#play_scramble:hover {
-    background-color: #0056b3;
-}
-#logout{
-    padding: 10px 20px;
-    font-size: 14px;
-    color: white;
-    background-color: #ff6347;
-    background-image: linear-gradient(to right, #ff6347, #ff4500);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    position: relative;
-    right: -190px;
-}
+        }
 
-#logout:hover {
-    background-image: linear-gradient(to right, #f88869, #f73614);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-#logout:active {
-    transform: scale(0.98);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 15px 25px 15px;
-}
-#update, #delete{
-    padding: 10px 20px;
-    font-size: 14px;
-    color: white;
-    background-color: #007BFF;
-    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    position: relative;
-    right: -190px;
-}
-
-#play_scramble:hover, #update:hover, #delete:hover {
-    background-color: #0056b3;
-    background-image: linear-gradient(to right, #784eed, #1727fc);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-#logout:active, #play_scramble:active, #update:active, #delete:active {
-    transform: scale(0.98);
-}

@@ -59,15 +59,15 @@ const checkWord = () => {
 
 refreshBtn.addEventListener("click", initGame);
 checkBtn.addEventListener("click", checkWord);
-finishBtn.addEventListener('click', function () {
-        const point = score; // Replace with the actual game score
-          fetch(`http://localhost:3000/updateUserscore`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: loggedInUser, point })
-          });
-          window.location.href = '/dashboard.html';
-    });
+// finishBtn.addEventListener('click', function () {
+//         const point = score; // Replace with the actual game score
+//           fetch(`http://localhost:3000/updateUserscore`, {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify({ username: loggedInUser, point })
+//           });
+//           window.location.href = '/dashboard.html';
+//     });
 document.addEventListener('DOMContentLoaded', function () {
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     const userInfo = document.getElementById('user-info');
@@ -81,11 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
         userInfo.innerHTML = 'Register here to save your score';
     }
     document.getElementById('finish-game').addEventListener('click', () => {
-          const score = 50; // Replace with the actual game score
+        //   const score = 50; // Replace with the actual game score
           fetch(`http://localhost:3000/updateUserscore`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: loggedInUser, score })
+            body: JSON.stringify({ username: loggedInUser, maxscore })
           });
           window.location.href = '/dashboard.html';
         });

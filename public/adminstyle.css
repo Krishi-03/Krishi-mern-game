@@ -1,6 +1,12 @@
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
+h2 {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 36px; /* Adjust font size as needed */
+    color: #007BFF; /* Adjust font color as needed */
+    text-shadow: 0 0 55px #007BFF; /* Adjust shadow color and size as needed */
+}
 * {
     margin: 0;
     padding: 0;
@@ -19,11 +25,11 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1500px;
     border-radius: 7px;
     background: #fff;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    overflow: visible;
     position: relative; /* Added position relative */
 }
 
@@ -42,6 +48,7 @@ body {
 
 .logout-button {
     padding: 10px 20px;
+    /* margin-top:15px; */
     font-size: 16px;
     background-color: #ff6347;
     background-image: linear-gradient(to right, #ff6347, #ff4500);
@@ -57,7 +64,7 @@ body {
 }
 
 .logout-button:hover {
-    background-image: linear-gradient(to right, #ff4500, #ff6347);
+    background-image: linear-gradient(to right, #f88869, #f73614);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -66,9 +73,32 @@ body {
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 15px 25px 15px;
+    width: 98%;
+    border-collapse: separate;
+    margin: 15px;
+}
+.update-button, .delete-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007BFF;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    left: 60px;
+    margin-right: 10px;
+}
+
+.update-button:hover, .delete-button:hover {
+    background-color: #0056b3;
+    background-image: linear-gradient(to right, #784eed, #1727fc);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+#logout:active, .update-button:active, .delete-button:active {
+    transform: scale(0.98);
 }
 
 thead {
@@ -110,7 +140,7 @@ tbody tr:hover {
         right: 20px; /* Aligned with padding */
     }
 
-    th, td {
-        padding: 15px 10px; /* Adjusted padding for smaller screens */
-    }
+    /* th, td { */
+        /* padding: 15px 10px; Adjusted padding for smaller screens */
+    /* } */
 }

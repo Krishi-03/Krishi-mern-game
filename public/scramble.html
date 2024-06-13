@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Word Scramble Game </title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="scramblestyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/word-list.js" defer></script>
     <script src="js/script.js" defer></script>
@@ -14,7 +14,7 @@
         document.getElementById('user-info').innerHTML = `Hello ${loggedInUser}! Welcome to Apna Playground`;
         finishBtn.addEventListener('click', function () {
             const point = score; // Replace with the actual game score
-              fetch(`http://localhost:3000/updateUser`, {
+              fetch(`http://localhost:3000/updateUserscore`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: loggedInUser, score })

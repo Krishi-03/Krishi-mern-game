@@ -11,23 +11,6 @@
     <script src="dashboard.js"></script>
     <style>
         
-        #user-info {
-            text-align:center;
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-        #play-button {
-            padding: 10px 20px;
-            font-size: 40px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 10px;
-            cursor:pointer;
-        }
-        #play-button:hover {
-            background-color: #0056b3;
-        }
         
 
     </style>
@@ -38,7 +21,11 @@
         <area shape="rect" coords="2,2,4,4" alt="scr" >
         </map>-->
         <div class="container">
-        <h2 style="text-align:center">Word Scramble</h2>
+        <h2 style="text-align:center">Word Scramble 
+            <button id="update" >Update Details</button>
+            <button id="delete" >Delete Account</button>
+            <button id="logout" >Logout</button>
+        </h2>
         <div class="content">
         <div id='user-info'></div>
         <div id="user-scramble">
@@ -46,9 +33,6 @@
         <p>Games Played: <span id="games-played">0</span></p>
         </div>
             <button id="play_scramble">Play</button>
-            <button id="logout"> Logout </button>   
-            <button id="update"> Update Details </button>   
-            <button id="delete"> Delete Account </button>   
         </div>
         
     </div>
