@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchUserData() {
     try {
-        const response = await fetch(`http://localhost:3000/users`); // Adjust the URL to your backend endpoint
+        const response = await fetch(`/users`); // Adjust the URL to your backend endpoint
         console.log(response);
         if(response.ok){
         const users = await response.json();
@@ -81,7 +81,7 @@ async function updateUser(user) {
     const password = prompt('Enter new password:', user.password);
     if (username && email && password && !user.isAdmin) {
         try {
-            const response = await fetch(`http://localhost:3000/admin/updateuser/${username}`, {
+            const response = await fetch(`/admin/updateuser/${username}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ async function deleteUser(username) {
     const confirmation = confirm('Are you sure you want to delete this user?');
     if (confirmation) {
         try {
-            const response = await fetch(`http://localhost:3000/deleteuser`, {
+            const response = await fetch(`/deleteuser`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

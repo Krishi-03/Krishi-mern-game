@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutBtn= document.getElementById('logout');
     const updateBtn= document.getElementById('update');
     const deleteBtn= document.getElementById('delete');
+    const urlParams = new URLSearchParams(window.location.search);
+    const isScript1  = urlParams.get("script1") === "true";
+    // console.log(isScript1);
+    const score=urlParams.get("max_score");
+    const games=urlParams.get("games");
+    console.log(score+games);
+    console.log("dashy"+score);
     if (loggedInUser) {
         // console.log("gaya?"+loggedInUser);
         userInfo.innerHTML = `Hello ${loggedInUser}! Welcome to Apna Playground!`;
@@ -21,12 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/scramble.html';
     });
     async function fetchUserData(username) {
-    const urlParams = new URLSearchParams(window.location.search);
-        const isScript1  = urlParams.get("script1") === "true";
-        if (isScript1) {
-            const score = urlParams.get("max_score");
-            console.log("dashy"+score);
-        }
+        displayUserData(username);
     }
 
     // Update button 
@@ -38,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = prompt('Enter new password:');
         if (username && email && password) {
             try {
-                const response = await fetch(`http://localhost:3000/user/updateuser/${username}`, {
+                const response = await fetch(`/user/updateuser/${username}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const confirmation = confirm('Are you sure you want to delete this user?');
         if (confirmation) {
             try {
-                const response = await fetch(`http://localhost:3000/deleteuser`, {
+                const response = await fetch(`/deleteuser`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -91,9 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function displayUserData(data) {
-    document.getElementById('max-score').textContent = data.maxScore;
-    const mxsc=data.maxScore;
-    document.getElementById('games-played').textContent = data.numOfGames;
-    sessionStorage.setItem("scramble-max-score",mxsc);
+    document.getElementById('max-score').textContent = score;
+    // const mxsc=data.maxScore;
+    document.getElementById('games-played').textContent = games;
+    // sessionStorage.setItem("scramble-max-score",mxsc);
 }
 });

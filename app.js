@@ -91,16 +91,17 @@ app.post('/register', async (req, res) => {
 
 // Update user score
 app.post('/updateUserscore', async (req, res) => {
-  const { username, score } = req.body;
+  const { username, maxscore } = req.body;
   try {
     let user = await User.findOne({ username });
     if (!user) {
-      user = new User({ username, maxScore: score});
+      user = new User({ username, maxScore: maxscore});
     } else {
-      user.maxScore = Math.max(user.maxScore, score);
+      user.maxScore = Math.max(user.maxScore, maxscore);
       user.numOfGames++;
     }
     await user.save();
+    console.log(user.maxScore);
     res.status(200).send(user);
   } catch (error) {
     res.status(500).send(error);
