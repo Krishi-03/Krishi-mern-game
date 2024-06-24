@@ -7,8 +7,8 @@ checkBtn = document.querySelector(".check-word");
 finishBtn = document.querySelector(".finish-game");
 scoreArea = document.querySelector(".score");
 let correctWord, timer;
-let score = 0; 
-let maxscore = sessionStorage.getItem("scramble-max-score") || 0;
+let score = 0,maxscore=0; 
+// let maxscore = sessionStorage.getItem("scramble-max-score") || 0;
 const initTimer = maxTime => {
     clearInterval(timer);
     timer = setInterval(() => {
@@ -50,7 +50,7 @@ const checkWord = () => {
 
         if (score > maxscore) {
             maxscore = score;
-            sessionStorage.setItem("scramble-max-score", maxscore);
+            // sessionStorage.setItem("scramble-max-score", maxscore);
             document.getElementById('max-score').innerText = maxscore;
         }
     }
@@ -59,27 +59,35 @@ const checkWord = () => {
 
 refreshBtn.addEventListener("click", initGame);
 checkBtn.addEventListener("click", checkWord);
-// finishBtn.addEventListener('click', function () {
-//         const point = score; // Replace with the actual game score
-//           fetch(`http://localhost:3000/updateUserscore`, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify({ username: loggedInUser, point })
-//           });
-//           window.location.href = '/dashboard.html';
-//     });
 document.addEventListener('DOMContentLoaded', function () {
-    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
     const userInfo = document.getElementById('user-info');
-
-    if (loggedInUser) {
-        userInfo.innerHTML = `Hello ${loggedInUser}! Play Word Scramble and improve your score`;
-        const maxscore = sessionStorage.getItem("scramble-max-score") || 0;
-        console.log(maxscore);
-        document.getElementById('max-score').innerHTML=`${(maxscore)}`;
-        finishBtn.addEventListener('click', async () => {
+    userInfo.innerHTML = `Hello ${username}! Play Word Scramble`;
+    fetchUserData(username);
+    async function fetchUserData(username) {
+    try {
+        const response = await fetch(`/api/user/${username}`); // Adjust the URL to your backend endpoint
+        console.log(response);
+    if(response.ok){
+        const users = await response.json();
+        console.log(users);
+        document.getElementById('max-score').textContent = users.maxScore;
+        // document.getElementById('games-played').textContent = users.numOfGames;
+    }
+    else{ // console.log("user"+username);
+        console.error('Error fetching user data:', response.statusText);
+    }
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+    }
+    console.log(maxscore);
+    document.getElementById('max-score').innerHTML=`${(maxscore)}`;
+    console.log(username+maxscore);
+    finishBtn.addEventListener('click', async () => {
         //   const score = 50; // Replace with the actual game score
-        const username=loggedInUser;
+        // const username=username;
         console.log(username+maxscore);
         try {
     // Perform AJAX request to the server register endpoint
@@ -99,7 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("result"+result.maxScore+result.numOfGames);
     const key=result.maxScore;
     const num=result.numOfGames;
-    window.location.href = `/dashboard.html?script1=true&max_score=${key}&&games=${num}`;
+    console.log(username+key+num);
+    sessionStorage.clear();
+    window.location.href = `/dashboard.html?script1=true&username=${username}`;
     
   } catch (error) {
     console.error('Error:', error);
@@ -107,8 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
     alert('An unexpected error occurred. Please try again later.');
   }
 });
-    } else {
-        userInfo.innerHTML = 'Register here to save your score';
-    }
+    
         
 });

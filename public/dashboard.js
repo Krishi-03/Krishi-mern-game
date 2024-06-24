@@ -1,39 +1,52 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    // const loggedInUser = sessionStorage.getItem('loggedInUser');
     const userInfo = document.getElementById('user-info');
     const playButton = document.getElementById('play_scramble');
     const logoutBtn= document.getElementById('logout');
     const updateBtn= document.getElementById('update');
     const deleteBtn= document.getElementById('delete');
     const urlParams = new URLSearchParams(window.location.search);
-    const isScript1  = urlParams.get("script1") === "true";
-    // console.log(isScript1);
-    const score=urlParams.get("max_score");
-    const games=urlParams.get("games");
-    console.log(score+games);
-    console.log("dashy"+score);
-    if (loggedInUser) {
-        // console.log("gaya?"+loggedInUser);
-        userInfo.innerHTML = `Hello ${loggedInUser}! Welcome to Apna Playground!`;
-        fetchUserData(loggedInUser);
-        logoutBtn.addEventListener('click',function(){
-        sessionStorage.clear();
-        window.location.href = '/index.html';
+    const score=urlParams.get("max_score") || 0;
+    const games=urlParams.get("games") || 0;
+    const username = urlParams.get("username");
+    console.log(username+score+games);
+
+    // Hello user! Welcome to Apna Playground!
+    userInfo.innerHTML = `Hello ${username}! Welcome to Apna Playground!`;
+
+    // Fetch user details
+    fetchUserData(username);
+
+    // Logout button    
+    logoutBtn.addEventListener('click',function(){
+    console.log("logout");
+    window.location.href = '/index.html';
     });
-    } else {
-        userInfo.innerHTML = 'Not logged in';
-    }
 
     playButton.addEventListener('click', function () {
-        window.location.href = '/scramble.html';
+        window.location.href = `/scramble.html?script3=true&username=${username}`;
     });
     async function fetchUserData(username) {
-        displayUserData(username);
+        try {
+            const response = await fetch(`/api/user/${username}`); // Adjust the URL to your backend endpoint
+            console.log(response);
+        if(response.ok){
+            const users = await response.json();
+            console.log(users);
+            document.getElementById('max-score').textContent = users.maxScore;
+            document.getElementById('games-played').textContent = users.numOfGames;
+        }
+        else{ // console.log("user"+username);
+            console.error('Error fetching user data:', response.statusText);
+        }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
     }
 
     // Update button 
     updateBtn.addEventListener('click', () => {
-            updateUser(loggedInUser);
+            updateUser(username);
     });
     async function updateUser(username) {
         const email = prompt('Enter new email:');
@@ -63,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }   
 
     deleteBtn.addEventListener('click', () => {
-            deleteUser(loggedInUser);
+            deleteUser(username);
     });
     async function deleteUser(username) {
         const confirmation = confirm('Are you sure you want to delete this user?');
@@ -90,12 +103,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }   
-
-
-function displayUserData(data) {
-    document.getElementById('max-score').textContent = score;
-    // const mxsc=data.maxScore;
-    document.getElementById('games-played').textContent = games;
-    // sessionStorage.setItem("scramble-max-score",mxsc);
-}
 });

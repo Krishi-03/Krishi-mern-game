@@ -41,7 +41,7 @@ if (!p_email || !p_pass) {
         const usr=document.getElementById('fusername').value;
         sessionStorage.setItem("loggedInUser", usr);
         console.log("dashy"+usr+loggedInUser);
-        window.location.href = "/dashboard.html";
+        window.location.href = `/dashboard.html?script2=true&username=${usr}`;
       }
       else{
         alert(result.message);
