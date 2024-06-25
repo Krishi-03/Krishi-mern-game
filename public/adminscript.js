@@ -23,10 +23,6 @@ async function fetchUserData() {
                 usernameCell.textContent = user.username;
                 row.appendChild(usernameCell);
 
-                const emailCell = document.createElement('td');
-                emailCell.textContent = user.email;
-                row.appendChild(emailCell);
-
                 const passwordCell = document.createElement('td');
                 passwordCell.textContent = user.password;
                 row.appendChild(passwordCell);
@@ -77,9 +73,8 @@ async function fetchUserData() {
 
 async function updateUser(user) {
     const username = user.username;
-    const email = prompt('Enter new email:', user.email);
     const password = prompt('Enter new password:', user.password);
-    if (username && email && password && !user.isAdmin) {
+    if (username && password) {
         try {
             const response = await fetch(`/admin/updateuser/${username}`, {
                 method: 'PUT',
@@ -87,7 +82,6 @@ async function updateUser(user) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: email,
                     password: password,
                 })
             });

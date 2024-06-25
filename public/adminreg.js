@@ -8,15 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const p_name=document.getElementById('fusername').value;
 const p_pass=document.getElementById('fpassword').value;
-const p_email=document.getElementById('femail').value;
+const p_sk=document.getElementById('fsecretkey').value;
 
-console.log(p_name+ p_pass+p_email);
+console.log(p_name+ p_pass+p_sk);
 console.log("admin wala?");
 
 
   // Basic form validation
-  if (!p_name || !p_email || !p_pass) {
-    console.error('Username, email, and password are required for registration');
+  if (!p_name || !p_sk || !p_pass) {
+    console.error('Username, password, and Secret Key are required for registration');
     return;
   }
 
@@ -27,7 +27,7 @@ console.log("admin wala?");
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ p_name, p_email, p_pass }),
+      body: JSON.stringify({ p_name, p_pass, p_sk }),
     });
     console.log(response.ok);
     if (!response.ok) {
@@ -40,7 +40,7 @@ console.log("admin wala?");
       console.log('Registration successful!');
       console.log("Admin wala?");
       alert(result.message);
-      window.location.href = "/adminlogin.html";
+      window.location.href = "/index.html";
     } 
     else {
       alert(result.message);

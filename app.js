@@ -29,8 +29,7 @@ async function connect() {
 
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true }, // Make username required if needed
-  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true }, // Username is primary key
   isAdmin: {type: Boolean, required: true, default:false},
   password: { type: String, required: true },
   numOfGames: { type: Number, default: 0 }, // Optional, tracks games played
@@ -46,20 +45,17 @@ app.listen(port, () => {
 
 // User Login
 app.post('/login', async (req, res) => {
-    const { p_email, p_pass } = req.body;
+    const { p_name, p_pass } = req.body;
     try {
-        console.log(p_email+p_pass);
+        console.log(p_name+p_pass);
         // Check if the username exists
-        const existingUser = await User.findOne({email: p_email});
+        const existingUser = await User.findOne({username: p_name});
         if (!existingUser) {
             return res.json({ success: false, message: 'Username not found. Please register first.' });
         }
         // Validate password
         if (existingUser.password !== p_pass) {
             return res.json({ success: false, message: 'Incorrect password.'});
-        }
-        if(existingUser.isAdmin){
-            return res.json({ success: false, message: 'Admin Login not allowed.'})
         }
             // sessionStorage.setItem("mxscore",user.maxScore);
         return res.json({ success: true, message: 'Login successful.' });
@@ -71,16 +67,16 @@ app.post('/login', async (req, res) => {
 
 // User Registration
 app.post('/register', async (req, res) => {
-    const { p_name,p_email, p_pass } = req.body;
+    const { p_name, p_pass } = req.body;
 
     try {
         // Check if the username already exists
         console.log("app");
-        const existingUser = await User.findOne({ email:p_email });
+        const existingUser = await User.findOne({ username:p_name });
         if (existingUser) {
             return res.json({ success: false, message: 'Username already exists. Please choose a different one.' });
         }
-        const newUser = new User({username: p_name,email: p_email, password: p_pass, numOfGames: 0,maxScore: 0});
+        const newUser = new User({username: p_name, password: p_pass, numOfGames: 0,maxScore: 0});
         await newUser.save();
         return res.json({ success: true, message: 'Registration successful.' });
     } catch (error) {
@@ -110,14 +106,14 @@ app.post('/updateUserscore', async (req, res) => {
 
 // Update user details
 app.put('/admin/updateuser/:username', async (req, res) => {
-    const {username} = req.params;  
-    const { email, password } = req.body;    
-    // res.send(username+email+password);
+    const { username } = req.params;  
+    const { password } = req.body;    
+    // res.send(username+username+password);
     // console.log(name);  
     try {
         const user = await User.findOne({ username});
-        if (user && !user.isAdmin){
-            user.email=email;
+        if (user){
+            user.username=username;
             user.password=password;
             await user.save();
             res.status(200).json({ success: true, message: 'Updated user details successfully!' });
@@ -149,17 +145,17 @@ app.delete('/deleteuser', async (req, res) => {
 
 // Admin Registration
 app.post('/adminregister', async (req, res) => {
-    const { p_name,p_email, p_pass } = req.body;
+    const { p_name, p_pass, p_sk } = req.body;
 
     try {
         // Check if the username already exists
         console.log("app");
-        const existingUser = await User.findOne({ email:p_email,isAdmin: true });
+        const existingUser = await User.findOne({ username:p_name,isAdmin: true });
         if (existingUser) {
             return res.json({ success: false, message: 'Admin username already exists. Please choose a different one.' });
         }
-        if(p_pass=='4dm1n72'){
-            const newUser = new User({username: p_name,email: p_email, password: p_pass, isAdmin: true, numOfGames: 0,maxScore: 0});
+        if(p_sk=='4dm1n72'){
+            const newUser = new User({username: p_name, password: p_pass, isAdmin: true, numOfGames: 0,maxScore: 0});
             await newUser.save();
         }
         else{
@@ -175,16 +171,16 @@ app.post('/adminregister', async (req, res) => {
 
 // Admin Login
 app.post('/adminlogin', async (req, res) => {
-    const { p_email, p_pass } = req.body;
+    const { p_name, p_pass } = req.body;
     try {
-        console.log(p_email+p_pass);
+        console.log(p_name+p_pass);
         // Check if the username exists
-        const existingUser = await User.findOne({email: p_email});
+        const existingUser = await User.findOne({username: p_name});
         if (!existingUser) {
             return res.json({ success: false, message: 'Admin username not found. Please register as an admin first.' });
         }
         // Validate password
-        if (p_pass !== '4dm1n72' || existingUser.isAdmin==false) {
+        if (existingUser.password!==p_pass || existingUser.isAdmin==false) {
             return res.json({ success: false, message: 'Access Denied.'});
         }
             // sessionStorage.setItem("mxscore",user.maxScore);
@@ -236,14 +232,14 @@ app.get('/api/user/:username', async (req, res) => {
 });
 
 app.put('/user/updateuser/:username', async (req, res) => {
-    const {username} = req.params;  
-    const { email, password } = req.body;    
-    // res.send(username+email+password);
+    const { username } = req.params;  
+    const { password } = req.body;    
+    // res.send(username+username+password);
     // console.log(name);  
     try {
         const user = await User.findOne({ username});
         if (user && !user.isAdmin){
-            user.email=email;
+            user.username=username;
             user.password=password;
             await user.save();
             res.status(200).json({ success: true, message: 'Updated user details successfully!' });

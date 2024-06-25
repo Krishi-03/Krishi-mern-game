@@ -49,9 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
             updateUser(username);
     });
     async function updateUser(username) {
-        const email = prompt('Enter new email:');
         const password = prompt('Enter new password:');
-        if (username && email && password) {
+        if (username && password) {
             try {
                 const response = await fetch(`/user/updateuser/${username}`, {
                     method: 'PUT',
@@ -59,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        email: email,
                         password: password,
                     })
                 });

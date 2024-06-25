@@ -8,15 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const p_name=document.getElementById('fusername').value;
 const p_pass=document.getElementById('fpassword').value;
-const p_email=document.getElementById('femail').value;
 
-console.log(p_name+ p_pass+p_email);
+console.log(p_name+ p_pass);
 
 
 
   // Basic form validation
-  if (!p_name || !p_email || !p_pass) {
-    console.error('Username, email, and password are required for registration');
+  if (!p_name || !p_pass) {
+    console.error('Username and password are required for registration');
     return;
   }
 
@@ -27,7 +26,7 @@ console.log(p_name+ p_pass+p_email);
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ p_name, p_email, p_pass }),
+      body: JSON.stringify({ p_name, p_pass }),
     });
     console.log(response.ok);
     if (!response.ok) {
