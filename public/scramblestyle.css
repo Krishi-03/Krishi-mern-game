@@ -12,13 +12,14 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #5372F0;
+  background-image: url(images/hero-bg.jpg);
 }
 .container{
+  margin-top: -70px;
   height: 500px;
   width: 1000px;
   border-radius: 7px;
-  background: #fff;
+  background: #79dfe7;
   box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 .container h2{

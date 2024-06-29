@@ -24,6 +24,11 @@ body {
 }
 
 .container {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    height: 870px;
     width: 100%;
     max-width: 1500px;
     border-radius: 7px;
@@ -97,7 +102,7 @@ table {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-#logout:active, .update-button:active, .delete-button:active {
+.update-button:active, .delete-button:active {
     transform: scale(0.98);
 }
 

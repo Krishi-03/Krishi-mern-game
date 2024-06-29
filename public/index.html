@@ -1,100 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form </title>
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <!-- Custom CSS -->
-    <style>
-      body {
-        background-color: #f8f9fa;
-      }
-      .login-container {
-        max-width: 400px;
-        margin: 100px auto;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .login-container h2 {
-        margin-bottom: 30px;
-        text-align: center;
-      }
-      .form-group {
-        margin-bottom: 20px;
-      }
-      .form-group label {
-        font-weight: bold;
-      }
-      .form-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ced4da;
-        border-radius: 5px;
-      }
-      .btn-login {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: #fff;
-        cursor: pointer;
-      }
-      .btn-login:hover {
-        background-color: #0056b3;
-      }
-    </style>
+
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <link rel="stylesheet" href="loginstyle.css">
     <script src="login.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="login-container">
-        <h2>User Login</h2>
-        <form action="#" method="post">
-          <div class="form-group">
-            <label for="username">Enter Username</label>
-            <input
-              type="text"
-              id="fusername"
-              class="form-control"
-              placeholder="Enter username"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="password">Enter Password</label>
-            <input
-              type="password"
-              id="fpassword"
-              class="form-control"
-              placeholder="Enter password"
-              required
-            />
-          </div>
+</head>
+<body>
 
-          <input
-            type="submit"
-            id="sub_id"
-            value="Sign In"
-            class="btn text-white btn-block btn-primary"
-          />
-          <span> Not Registered yet? </span> <a href="register.html"> Register here!</a><br>
-          <span> Admin Registration </span> <a href="adminregis.html">Register here!</a><br>
-          <span> Play as a guest: </span> <a href="scramble.html">Play here!</a>
-        </form>
-      </div>
+    <div class="main">
+        <section class="sign-in">
+          <div class="container">
+              <div class="signin-content">
+                  <div class="signin-image">
+                      <figure><img src="images/word_scramble.jpeg" alt="sign up image"></figure>
+                  </div>
+
+                  <div class="signin-form">
+                      <h2 class="form-title">Login</h2>
+                          <form action="#" class="register-form" method="post"></form>
+                          <div class="form-group">
+                              <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                              <input type="text" class="form-control" id="fusername" placeholder="Username"/>
+                          </div>
+                          <div class="form-group">
+                              <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                              <input type="password" name="your_pass" id="fpassword" placeholder="Password"/>
+                          </div>
+                        
+                          <p class="text--center">New User? <a href="register.html">Sign Up</a> </p>
+                          <p class="text--center">Want to try a demo game? <a href="scramble.html">Play as guest</a> </p>
+                          <div class="form-group form-button">
+                              <input type="submit"  name="signin" id="sub_id" value="Sign In" class="form-submit" value="Log in">
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </section>
     </div>
-  </body>
+
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
 </html>
+
+
+
+

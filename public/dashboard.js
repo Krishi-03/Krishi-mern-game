@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(username+score+games);
 
     // Hello user! Welcome to Apna Playground!
-    userInfo.innerHTML = `Hello ${username}! Welcome to Apna Playground!`;
+    userInfo.innerHTML = `Welcome Back, ${username}!`;
 
     // Fetch user details
     fetchUserData(username);

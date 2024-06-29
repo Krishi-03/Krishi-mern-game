@@ -15,21 +15,26 @@
         <map id="scr" name="scr">
         <area shape="rect" coords="2,2,4,4" alt="scr" >
         </map>-->
-        <div class="container">
-        <h2 style="text-align:center">Word Scramble 
-            <button id="update" >Update Details</button>
-            <button id="delete" >Delete Account</button>
-            <button id="logout" >Logout</button>
-        </h2>
-        <div class="content">
-        <div id='user-info'></div>
-        <div id="user-scramble">
-        <p>Max Score: <span id="max-score">0</span></p>
-        <p>Games Played: <span id="games-played">0</span></p>
-        </div>
-            <button id="play_scramble">Play</button>
-        </div>
-        
-    </div>
+          <div class="container">
+              <div class="dashboard-content">
+                  <div class="dashboard-image">
+                      <figure><img src="images/word_scramble.jpeg" alt="sign up image"></figure>
+                  </div>
+
+                  <div class="dashboard-form">
+                      <h2 class="dashboard-title"><div id='user-info' style="text-align:center;"></div></h2>
+                      <div id="user-scramble"> <p style="text-align:center; font-size:20px; margin-bottom:-20px;">Your Stats:</p>
+                      <p style="text-align:center; font-size:20px;">Max Score: <span id="max-score">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Games Played: <span id="games-played">0</span></p> 
+                  </div>
+                  <div>
+                    <button id="play_scramble">Play!</button>
+                  </div>
+                  <div>
+                    <button id="update" >Update Details</button>
+                    <button id="delete" >Delete Account</button>
+                    <button id="logout" >Logout</button>
+                  </div>
+               </div>
+          </div>
   </body>
 </html>
