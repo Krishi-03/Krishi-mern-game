@@ -1,4 +1,4 @@
-## Word Scramble MERN
+## Word Scramble game
 
 A word scramble game built using MongoDB, Express, Node.js, HTML, CSS and JavaScript.
 
