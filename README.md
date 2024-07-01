@@ -1,3 +1,4 @@
+![Krishi-mern-game](https://socialify.git.ci/Krishi-03/Krishi-mern-game/image?font=Inter&language=1&name=1&owner=1&pattern=Plus&stargazers=1&theme=Light)
 ## Word Scramble game
 
 A word scramble game built using MongoDB, Express, Node.js, HTML, CSS and JavaScript.
