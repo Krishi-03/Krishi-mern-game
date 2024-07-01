@@ -26,7 +26,7 @@ Word Scramble MERN is a web-based word scramble game where users can register, l
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/krishi-03/word-scramble-mern.git](https://github.com/Krishi-03/Krishi-mern-game.git)
+   git clone https://github.com/Krishi-03/Krishi-mern-game.git
    ```
 
 2. Install dependencies:
